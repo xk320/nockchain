@@ -162,7 +162,7 @@ function build_source() {
   # 定义编译命令数组
   declare -a build_commands=(
     "make install-hoonc"
-    "make -j$CORE_COUNT build"
+    "make build"
     "make -j$CORE_COUNT install-nockchain-wallet"
     "make -j$CORE_COUNT install-nockchain"
   )
