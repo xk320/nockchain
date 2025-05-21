@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  leader:
+    build: .
+    container_name: nockchain-leader
+    environment:
+      - SEED_PHRASE=${SEED_PHRASE}
+      - ROLE=leader
+    volumes:
+      - ./data/leader:/root/nockchain/target/release
+      - ./logs/leader:/var/log/nockchain
+    network_mode: host
+    ports:
+      - "3005:3005/udp"
+    restart: unless-stopped
+
+  follower:
+    build: .
+    container_name: nockchain-follower
+    environment:
+      - SEED_PHRASE=${SEED_PHRASE}
+      - ROLE=follower
+    volumes:
+      - ./data/follower:/root/nockchain/target/release
+      - ./logs/follower:/var/log/nockchain
+    network_mode: host
+    ports:
+      - "3006:3006/udp"
+    depends_on:
+      - leader
+    restart: unless-stopped
+
+networks:
+  nockchain-net:
+    driver: bridge
