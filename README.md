@@ -38,3 +38,7 @@ vim .env
 ```
 docker compose up -d
 ```
+### 6、停止
+```
+docker compose down -v
+```
